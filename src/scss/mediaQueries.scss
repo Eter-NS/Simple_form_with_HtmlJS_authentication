@@ -1,0 +1,10 @@
+@media (prefers-color-scheme: dark) {
+  :root {
+    --lightness: 10%;
+  }
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --lightness: 60%;
+  }
+}

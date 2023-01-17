@@ -1,0 +1,14 @@
+@use "./mediaQueries.scss";
+@use "./form.scss";
+
+*,
+html,
+:root {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: hsl(0, 0%, var(--lightness));
+}
