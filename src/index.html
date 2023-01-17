@@ -11,18 +11,30 @@
         type="email"
         name="email"
         id="email"
+        class="form--input"
         placeholder="example@example.domain"
         aria-placeholder="example@example.domain"
+        autocomplete="off"
+      />
+
+      <input
+        type="text"
+        name="Topic"
+        id="Topic"
+        class="form--input"
+        placeholder="Subject"
+        aria-placeholder="Subject"
       />
       <textarea
         name="message"
         id="message"
+        class="form--textarea"
         cols="30"
         rows="10"
-        placeholder="Here you can write your message 😊"
+        placeholder="Here you can write your message"
         aria-placeholder="Here you can write your message"
       ></textarea>
-      <input type="submit" value="Send the mail" />
+      <input class="form--button" type="submit" value="Send the mail" />
     </form>
     <script type="module" src="./js/main.js"></script>
   </body>
