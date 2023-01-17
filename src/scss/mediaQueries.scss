@@ -1,10 +1,14 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --lightness: 10%;
+    --fontColor: hsla(0, 0%, 100%, 0.867);
+    --placeholderColor: hsla(0, 0%, 100%, 0.6);
   }
 }
 @media (prefers-color-scheme: light) {
   :root {
-    --lightness: 60%;
+    --lightness: 70%;
+    --fontColor: hsla(0, 0%, 0%, 0.867);
+    --placeholderColor: hsla(0, 0%, 0%, 0.6);
   }
 }
