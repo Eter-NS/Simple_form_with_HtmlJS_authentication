@@ -3,10 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="./js/purify.min.js"></script>
     <title>Form authentication using HTML&JS</title>
   </head>
   <body>
-    <form method="post" class="form">
+    <form class="form">
       <input
         type="email"
         name="email"
@@ -15,15 +16,18 @@
         placeholder="example@example.domain"
         aria-placeholder="example@example.domain"
         autocomplete="off"
+        minlength="8"
+        required
       />
 
       <input
         type="text"
         name="Topic"
-        id="Topic"
+        id="topic"
         class="form--input"
         placeholder="Subject"
         aria-placeholder="Subject"
+        maxlength="32"
       />
       <textarea
         name="message"
@@ -33,9 +37,13 @@
         rows="10"
         placeholder="Here you can write your message"
         aria-placeholder="Here you can write your message"
+        required
+        minlength="10"
+        maxlength="500"
       ></textarea>
       <input class="form--button" type="submit" value="Send the mail" />
     </form>
+
     <script type="module" src="./js/main.js"></script>
   </body>
 </html>
