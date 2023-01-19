@@ -55,3 +55,13 @@
 .form--button:hover {
   background: hsl(0, 0%, calc(var(--lightness) + 25%));
 }
+
+.error {
+  background: linear-gradient(
+    150deg,
+    hsla(0, 83%, 61%, calc(var(--lightness) + 40%)),
+    hsl(0, 0%, calc(var(--lightness) + 40%))
+  );
+  margin: 0 auto;
+  width: 80%;
+}
