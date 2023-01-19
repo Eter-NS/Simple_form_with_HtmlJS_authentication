@@ -57,11 +57,13 @@
 }
 
 .error {
-  background: linear-gradient(
-    150deg,
-    hsla(0, 83%, 61%, calc(var(--lightness) + 40%)),
-    hsl(0, 0%, calc(var(--lightness) + 40%))
-  );
   margin: 0 auto;
+  padding: 0;
+  padding-bottom: 20px;
   width: 80%;
+  font-size: 1em;
+  font-weight: 600;
+  color: hsl(0, 60%, 50%);
+  text-align: center;
+  background: transparent;
 }
