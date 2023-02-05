@@ -1,5 +1,5 @@
-@use "./mediaQueries.scss";
-@use "./form.scss";
+@use "./mediaQueries";
+@use "./form";
 
 *,
 html,
@@ -12,7 +12,28 @@ html,
 }
 
 body {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  padding: 10%;
   background: hsl(0, 0%, var(--lightness));
+}
+
+.redirect-link {
+  position: absolute;
+  bottom: 2vmin;
+  right: 2vmin;
+
+  &__button {
+    font-size: 1em;
+    padding: 3%;
+    border: none;
+    border-radius: 15px;
+    font-weight: 600;
+    background: hsl(0, 0%, calc(var(--lightness) + 20%));
+    color: var(--fontColor);
+
+    &:hover {
+      cursor: pointer;
+      background: hsl(0, 0%, calc(var(--lightness) + 25%));
+    }
+  }
 }
