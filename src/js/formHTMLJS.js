@@ -7,7 +7,7 @@ export default class FormAuth_HTMLJS {
     this._subject = this.form.querySelector("input[type=text]");
     this._textarea = this.form.querySelector("textarea");
     this._inputs = [this._email, this._subject, this._textarea];
-    this._button = this.form.querySelector("input[type=submit]");
+    this._button = this.form.querySelector("[type=submit]");
     // error flag
     this._hasError = false;
 
