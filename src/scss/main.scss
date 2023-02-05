@@ -17,6 +17,12 @@ body {
   background: hsl(0, 0%, var(--lightness));
 }
 
+h1 {
+  text-align: center;
+  color: var(--fontColor);
+  padding-bottom: 5%;
+}
+
 .redirect-link {
   position: absolute;
   bottom: 2vmin;
