@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form authentication using only JS</title>
+  </head>
+  <body>
+    <h1>JS form</h1>
+    <form class="form">
+      <input
+        type="email"
+        name="email"
+        id="email"
+        class="form--input"
+        placeholder="example@example.domain"
+        aria-placeholder="example@example.domain"
+        autocomplete="off"
+        minlength="8"
+        required
+      />
+
+      <input
+        type="text"
+        name="Topic"
+        id="topic"
+        class="form--input"
+        placeholder="Subject"
+        aria-placeholder="Subject"
+        maxlength="32"
+        autocomplete="off"
+        aria-autocomplete="none"
+      />
+      <textarea
+        name="message"
+        id="message"
+        class="form--textarea"
+        cols="30"
+        rows="10"
+        placeholder="Here you can write your message"
+        aria-placeholder="Here you can write your message"
+        required
+        minlength="10"
+        maxlength="500"
+        autocomplete="off"
+        aria-autocomplete="none"
+      ></textarea>
+      <button class="form--button" type="submit">Send the mail</button>
+    </form>
+
+    <a href="./index.html" class="redirect-link">
+      <button type="button" class="redirect-link__button">
+        Check html&js option
+      </button>
+    </a>
+    <script type="module" src="./js/index_JSForm.js"></script>
+  </body>
+</html>
