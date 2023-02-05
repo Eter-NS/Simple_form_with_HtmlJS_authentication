@@ -3,10 +3,12 @@ export default class FormAuth_HTMLJS {
     this.place = place;
     this.form = document.querySelector(place);
     // elements
-    this.email = this.form.querySelector("input[type=email]");
-    this.subject = this.form.querySelector("input[type=text]");
-    this.textarea = this.form.querySelector("textarea");
-    this.button = this.form.querySelector("input[type=submit]");
+    this._email = this.form.querySelector("input[type=email]");
+    this._subject = this.form.querySelector("input[type=text]");
+    this._textarea = this.form.querySelector("textarea");
+    this._inputs = [this._email, this._subject, this._textarea];
+    this._button = this.form.querySelector("input[type=submit]");
+    // error flag
     this._hasError = false;
 
     this.form.setAttribute("novalidate", true);
@@ -33,27 +35,28 @@ export default class FormAuth_HTMLJS {
   }
 
   bindEvents() {
-    const inputs = [this.email, this.subject, this.textarea];
     this.validateElement = this.validateElement.bind(this);
     this.lastCheck = this.lastCheck.bind(this);
 
-    for (const input of inputs) {
+    for (const input of this._inputs) {
       input.addEventListener("blur", (e) => {
-        this.validateElement(e);
+        e.preventDefault();
+        this.validateElement(input);
       });
     }
 
     this.form.addEventListener("submit", (e) => {
       e.preventDefault();
-
       this.lastCheck(e);
     });
   }
 
   checkSecurity(dirtyElement) {
-    return DOMPurify.sanitize(dirtyElement, {
+    return DOMPurify.sanitize(
+      dirtyElement.value /* , {
       USE_PROFILES: { html: true },
-    });
+    } */
+    );
   }
 
   toggleError(element, display, message) {
@@ -71,7 +74,6 @@ export default class FormAuth_HTMLJS {
       errorElement.setAttribute("aria-hidden", false);
 
       element.after(errorElement);
-      this.validateForm;
     } else {
       return;
     }
@@ -113,23 +115,25 @@ export default class FormAuth_HTMLJS {
     return errMessages.join(", <br>");
   }
 
-  validateElement(e) {
-    e.preventDefault();
-    this._hasError = !e.target.checkValidity();
-    const validity = e.target.validity;
+  validateElement(el) {
+    const localErrFlag = !el.checkValidity(),
+      validity = el.validity;
 
-    this.toggleError(e.target, this._hasError, this.createErrMessage(validity));
+    this.toggleError(el, localErrFlag, this.createErrMessage(validity));
+    return localErrFlag;
   }
 
   lastCheck(e) {
-    e.preventDefault();
-
-    this.email = this.checkSecurity(this.email);
-    this.subject = this.checkSecurity(this.subject);
-    this.textarea = this.checkSecurity(this.textarea);
+    for (let input of this._inputs) {
+      input.textContent = this.checkSecurity(input);
+      // checks if the element is ok, if the function returns true, the global error flag also turns true, and then it blocks submit
+      if (this.validateElement(input)) {
+        this._hasError = true;
+      }
+    }
 
     const lastWarn = this.errorCodes.lastWarming;
-    this.toggleError(this.button, this._hasError, lastWarn);
+    this.toggleError(this._button, this._hasError, lastWarn);
 
     // if OK
     if (!this._hasError) {
