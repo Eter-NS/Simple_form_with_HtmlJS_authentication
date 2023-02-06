@@ -31,27 +31,58 @@
   border-bottom: 5px solid hsl(0, 0%, calc(var(--lightness) + 10%));
 }
 
-.form--input {
+.form__input {
   margin: 0 auto;
   width: 80%;
   justify-self: flex-start;
 }
 
-.form--textarea {
+.form__textarea {
   width: 80%;
   resize: none;
 }
 
-.form--button {
+.form__button {
   position: relative;
   cursor: pointer;
   padding: 3% 4%;
   margin: 0 auto;
   overflow: hidden;
   z-index: 1;
+
+  &.form__button--error-shaking {
+    animation: shake 600ms linear none;
+
+    @keyframes shake {
+      0% {
+        transform: translateX(0);
+      }
+      14% {
+        transform: translateX(-3px);
+      }
+      29% {
+        transform: translateX(5px);
+      }
+      43% {
+        transform: translateX(-8px);
+      }
+      57% {
+        transform: translateX(8px);
+      }
+      71% {
+        transform: translateX(-5px);
+      }
+      85% {
+        transform: translateX(3px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+  }
 }
 
-.form--button::before {
+.form__button::before {
   content: "";
   position: absolute;
   top: 0;
@@ -64,14 +95,14 @@
   transition: opacity 300ms ease-in;
 }
 
-.form--button:hover::before {
+.form__button:hover::before {
   opacity: 1;
 }
 
 .error {
   margin: 0 auto;
   padding: 0;
-  padding-bottom: 20px;
+  transform: translateY(-90%);
   width: 80%;
   font-size: 1em;
   font-weight: 600;
