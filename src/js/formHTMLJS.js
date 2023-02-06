@@ -1,3 +1,6 @@
+import _buttonShaking from "./_buttonshaking";
+import _checkSecurity from "./_checkSecurity";
+
 export default class FormAuth_HTMLJS {
   constructor(place, errValues) {
     this.place = place;
@@ -49,14 +52,6 @@ export default class FormAuth_HTMLJS {
       e.preventDefault();
       this.lastCheck(e);
     });
-  }
-
-  checkSecurity(dirtyElement) {
-    return DOMPurify.sanitize(
-      dirtyElement.value /* , {
-      USE_PROFILES: { html: true },
-    } */
-    );
   }
 
   toggleError(element, display, message) {
@@ -125,7 +120,7 @@ export default class FormAuth_HTMLJS {
 
   lastCheck(e) {
     for (let input of this._inputs) {
-      input.textContent = this.checkSecurity(input);
+      input.textContent = _checkSecurity(input);
       // checks if the element is ok, if the function returns true, the global error flag also turns true, and then it blocks submit
       if (this.validateElement(input)) {
         this._hasError = true;
@@ -138,6 +133,9 @@ export default class FormAuth_HTMLJS {
     // if OK
     if (!this._hasError) {
       e.target.submit();
+    } else {
+      _buttonShaking(this._button);
+      this._hasError = false;
     }
   }
 }
