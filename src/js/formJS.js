@@ -81,12 +81,15 @@ export default class FormAuth_JS {
       input.textContent = _checkSecurity(input);
 
       if (this._validateElement(input)) {
-        console.log(input);
         // if validation returns true (an error exists) only then change _formError flag to true
-        this._toggleErrText(this._button, true, this.errCodes.lastWarming);
         this._formError = true;
       }
     }
+    this._toggleErrText(
+      this._button,
+      this._formError,
+      this.errCodes.lastWarming
+    );
 
     if (!this._formError) {
       this.form.submit();
