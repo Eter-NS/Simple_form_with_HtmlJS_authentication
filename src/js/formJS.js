@@ -1,7 +1,11 @@
+import _buttonShaking from "./_buttonshaking";
+import _checkSecurity from "./_checkSecurity";
+
 export default class FormAuth_JS {
   constructor(place, errMessages) {
     this.place = place;
     this.form = document.querySelector(place);
+    this.form.setAttribute("novalidate", true);
     this._inputs = this._removeSubmitElements([
       ...this.form.querySelectorAll("input"),
     ]);
@@ -19,14 +23,13 @@ export default class FormAuth_JS {
 
   _createErrMessages(userMessages) {
     const defaultValues = {
-      badInput: "Write a number",
+      lastWarming: "Please check the errors above",
       patternMismatch: "The written value doesn't meet the requirements",
-      stepMismatch: "Choose proper value",
-      tooLong: "Written data is too high",
-      tooShort: "Written data is too low",
+      badInput: "Write a proper data",
       valueMissing: "Please fill the input",
       typeMismatch: "Write proper data type",
-      lastWarming: "Please check the errors above",
+      tooShort: "Written data is too short",
+      tooLong: "Written data is too long",
     };
     return Object.assign({}, defaultValues, userMessages);
   }
@@ -47,6 +50,63 @@ export default class FormAuth_JS {
     });
   }
 
-  _validateElement(el) {}
-  _lastCheck() {}
+  _validateElement(el) {
+    let localErrorFlag = false;
+    if (!el.required) return localErrorFlag;
+
+    // has minLength attr
+    if (el.minLength !== -1) {
+      localErrorFlag = el.value.length < el.minLength;
+      this._toggleErrText(el, localErrorFlag, this.errCodes.tooShort);
+    }
+    if (localErrorFlag) return localErrorFlag;
+    // has maxLength attr
+    if (el.maxLength !== -1) {
+      localErrorFlag = el.value.length > el.maxLength;
+      this._toggleErrText(el, localErrorFlag, this.errCodes.tooLong);
+    }
+    if (localErrorFlag) return localErrorFlag;
+    // is email type
+    if (el.type === "email") {
+      const properValue = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/g;
+      localErrorFlag = !properValue.test(el.value);
+      this._toggleErrText(el, localErrorFlag, this.errCodes.patternMismatch);
+    }
+
+    return localErrorFlag;
+  }
+
+  _lastCheck() {
+    for (const input of this._inputs) {
+      input.textContent = _checkSecurity(input);
+
+      if (this._validateElement(input)) {
+        console.log(input);
+        // if validation returns true (an error exists) only then change _formError flag to true
+        this._toggleErrText(this._button, true, this.errCodes.lastWarming);
+        this._formError = true;
+      }
+    }
+
+    if (!this._formError) {
+      this.form.submit();
+    } else {
+      _buttonShaking(this._button);
+      this._formError = false;
+    }
+  }
+
+  _toggleErrText(element, toggle, message) {
+    const noMessage = "No error message declared",
+      brotherElement = element.nextElementSibling || null;
+    if (brotherElement?.classList.contains("error")) {
+      brotherElement.innerHTML = message || noMessage;
+      brotherElement.style.display = toggle ? "block" : "none";
+    } else if (toggle) {
+      const errorElement = document.createElement("p");
+      errorElement.classList.add("error");
+      errorElement.innerHTML = message || noMessage;
+      element.after(errorElement);
+    }
+  }
 }
